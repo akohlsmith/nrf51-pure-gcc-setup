@@ -38,7 +38,9 @@ endif
 ifdef USE_BLE
     LIBRARY_PATHS += $(SDK_INCLUDE_PATH)ble/
     LIBRARY_PATHS += $(SDK_INCLUDE_PATH)ble/ble_services/
-    SOURCE_PATHS += $(SDK_SOURCE_PATH)ble/ble_services/
+    SOURCE_PATHS += $(wildcard $(SDK_SOURCE_PATH)/ble/*/)
+    SDK_INCLUDE_PATH += $(SDK_PATH)Include/ble/
+    SDK_INCLUDE_PATH += $(SDK_PATH)Include/ble/ble_services/
     CFLAGS += -DBLE_STACK_SUPPORT_REQD
 endif
 
@@ -47,6 +49,9 @@ ifdef USE_ANT
 endif
 
 ifdef USE_SOFTDEVICE
+    SDK_INCLUDE_PATH += $(SDK_PATH)Include/app_common/
+    SDK_INCLUDE_PATH += $(SDK_PATH)Include/sd_common/
+    SDK_INCLUDE_PATH += $(SDK_PATH)Include/$(USE_SOFTDEVICE)
     LIBRARY_PATHS += $(SDK_INCLUDE_PATH)$(USE_SOFTDEVICE)
     LIBRARY_PATHS += $(SDK_INCLUDE_PATH)app_common/
     LIBRARY_PATHS += $(SDK_INCLUDE_PATH)sd_common/
